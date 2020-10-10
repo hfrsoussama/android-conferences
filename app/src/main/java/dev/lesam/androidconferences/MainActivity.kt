@@ -3,10 +3,7 @@ package dev.lesam.androidconferences
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.Text
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Surface
-import androidx.compose.material.TopAppBar
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.setContent
 import androidx.ui.tooling.preview.Preview
@@ -17,19 +14,21 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             AndroidConferencesTheme {
+                val scaffoldState = rememberScaffoldState(rememberDrawerState(DrawerValue.Open))
                 Scaffold(
-                        topBar = { 
+                        scaffoldState = scaffoldState,
+                        topBar = {
                             TopAppBar(
                                     title = { Text(text = "Android Conferences") },
                                     backgroundColor = MaterialTheme.colors.primary
                             )
+                        },
+                        bodyContent = {
+                            Surface(color = MaterialTheme.colors.background) {
+                                Greeting("Android")
+                            }
                         }
-                ) {
-                    // A surface container using the 'background' color from the theme
-                    Surface(color = MaterialTheme.colors.background) {
-                        Greeting("Android")
-                    }
-                }
+                )
             }
         }
     }
