@@ -1,5 +1,6 @@
 package dev.lesam.androidconferences
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -8,33 +9,36 @@ import androidx.compose.foundation.Text
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.Button
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.ProvidableAmbient
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.platform.ContextAmbient
 import androidx.compose.ui.platform.setContent
 import androidx.ui.tooling.preview.Preview
+import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import dev.lesam.androidconferences.ui.AndroidConferencesTheme
-import com.google.android.gms.oss.licenses.OssLicensesMenuActivity;
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            AndroidConferencesTheme {
-                Column {
-                    val context = ContextAmbient.current
-                    val openOssActivityOnClick = {
-                        startActivity(
-                            Intent(
-                                context,
-                                OssLicensesMenuActivity::class.java
-                            )
-                        )
-                    }
-                    Text("Alfred Sisley")
-                    Text("3 minutes ago")
-                    Button(onClick = openOssActivityOnClick) {
-                        Text(text = "Click me !")
-                    }
-                }
+            HomeScreen(ContextAmbient, Modifier.layoutId("homeScreen"))
+        }
+    }
+}
+
+@Composable
+fun HomeScreen(ContextAmbient: ProvidableAmbient<Context>, modifier: Modifier) {
+    AndroidConferencesTheme {
+        Column(modifier = modifier) {
+            val context = ContextAmbient.current
+            val openOssActivityOnClick = {
+                context.startActivity(Intent(context, OssLicensesMenuActivity::class.java))
+            }
+            Greeting("Alfred Sisley")
+            Greeting("3 minutes ago")
+            Button(onClick = openOssActivityOnClick) {
+                Text(text = "See Licences")
             }
         }
     }
@@ -63,4 +67,11 @@ fun DefaultPreview() {
             Text(text = "Click me !")
         }
     }
+}
+
+@Preview(group = "Screens", showBackground = true, heightDp = 300, widthDp = 300)
+@Composable
+fun HomeScreenPreview() {
+    val context = ContextAmbient.current
+    HomeScreen(ContextAmbient = ContextAmbient, modifier = Modifier.None)
 }
