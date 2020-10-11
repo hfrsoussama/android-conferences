@@ -1,5 +1,6 @@
 *.iml
 .gradle
+.idea
 /local.properties
 /.idea/caches
 /.idea/libraries
@@ -14,4 +15,5 @@
 .cxx
 local.properties
 /.idea/vcs.xml
+/.idea/codeStyleConfig.xml
 
