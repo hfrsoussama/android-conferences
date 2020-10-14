@@ -20,9 +20,7 @@ class MainActivityTest {
     fun setup() {
         composeAndroidTestRule.setContent {
             AndroidConferencesTheme {
-                val contextAmbient = ContextAmbient
                 HomeScreen(
-                    ContextAmbient = contextAmbient,
                     modifier = Modifier.testTag(homeScreenTestTag)
                 )
             }
@@ -37,7 +35,7 @@ class MainActivityTest {
 
             onNodeWithTag(homeScreenTestTag)
                 .onChildren()
-                .assertCountEquals(3)
+                .assertCountEquals(2)
         }
     }
 }

@@ -1,19 +1,22 @@
 package dev.lesam.androidconferences
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.Text
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Button
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.ProvidableAmbient
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.platform.ContextAmbient
 import androidx.compose.ui.platform.setContent
+import androidx.compose.ui.unit.dp
 import androidx.ui.tooling.preview.Preview
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import dev.lesam.androidconferences.ui.AndroidConferencesTheme
@@ -22,21 +25,25 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            HomeScreen(ContextAmbient, Modifier.layoutId("homeScreen"))
+            HomeScreen(
+                modifier = Modifier.layoutId("homeScreen")
+            )
         }
     }
 }
 
 @Composable
-fun HomeScreen(ContextAmbient: ProvidableAmbient<Context>, modifier: Modifier) {
+fun HomeScreen(modifier: Modifier) {
     AndroidConferencesTheme {
-        Column(modifier = modifier) {
+        Column(modifier = modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
             val context = ContextAmbient.current
             val openOssActivityOnClick = {
                 context.startActivity(Intent(context, OssLicensesMenuActivity::class.java))
             }
-            Greeting("Alfred Sisley")
-            Greeting("3 minutes ago")
+            Text(
+                text = "I am a Composer",
+                modifier = Modifier.padding(all = 16.dp)
+            )
             Button(onClick = openOssActivityOnClick) {
                 Text(text = "See Licences")
             }
@@ -44,34 +51,8 @@ fun HomeScreen(ContextAmbient: ProvidableAmbient<Context>, modifier: Modifier) {
     }
 }
 
-@Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
-}
-
-@Preview(showBackground = true, group = "Texts")
-@Composable
-fun PreviewGreeting() {
-    AndroidConferencesTheme {
-        Greeting("Android")
-    }
-}
-
-@Preview(showBackground = true, group = "Texts")
-@Composable
-fun DefaultPreview() {
-    Column {
-        Greeting("Android")
-        Greeting("Koko")
-        Button(onClick = { Log.d("KOO", "koko") }) {
-            Text(text = "Click me !")
-        }
-    }
-}
-
-@Preview(group = "Screens", showBackground = true, heightDp = 300, widthDp = 300)
+@Preview(group = "Screens", showBackground = true, heightDp = 600, widthDp = 300)
 @Composable
 fun HomeScreenPreview() {
-    val context = ContextAmbient.current
-    HomeScreen(ContextAmbient = ContextAmbient, modifier = Modifier.None)
+    HomeScreen(modifier = Modifier.background(Color.Cyan))
 }
