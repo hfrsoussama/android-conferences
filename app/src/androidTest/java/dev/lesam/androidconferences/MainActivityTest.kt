@@ -1,7 +1,6 @@
 package dev.lesam.androidconferences
 
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.ContextAmbient
 import androidx.compose.ui.platform.testTag
 import androidx.ui.test.*
 import dev.lesam.androidconferences.ui.AndroidConferencesTheme
@@ -28,7 +27,7 @@ class MainActivityTest {
     }
 
     @Test
-    fun homeScreenShouldHaveThreeComposables() {
+    fun homeScreenShouldHaveTwoComposables() {
         composeAndroidTestRule.apply {
 
             onRoot().printToLog("######")
