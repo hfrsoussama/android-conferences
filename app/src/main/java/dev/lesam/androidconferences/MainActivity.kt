@@ -9,6 +9,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Button
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -35,17 +37,19 @@ class MainActivity : AppCompatActivity() {
 @Composable
 fun HomeScreen(modifier: Modifier) {
     AndroidConferencesTheme {
-        Column(modifier = modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
-            val context = ContextAmbient.current
-            val openOssActivityOnClick = {
-                context.startActivity(Intent(context, OssLicensesMenuActivity::class.java))
-            }
-            Text(
-                text = "I am a Composer",
-                modifier = Modifier.padding(all = 16.dp)
-            )
-            Button(onClick = openOssActivityOnClick) {
-                Text(text = "See Licences")
+        Surface(color = MaterialTheme.colors.background) {
+            Column(modifier = modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
+                val context = ContextAmbient.current
+                val openOssActivityOnClick = {
+                    context.startActivity(Intent(context, OssLicensesMenuActivity::class.java))
+                }
+                Text(
+                    text = "I am a Composer",
+                    modifier = Modifier.padding(all = 16.dp)
+                )
+                Button(onClick = openOssActivityOnClick) {
+                    Text(text = "See Licences")
+                }
             }
         }
     }
