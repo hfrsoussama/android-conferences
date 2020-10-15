@@ -8,10 +8,10 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Button
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -51,11 +51,17 @@ fun HomeScreen(modifier: Modifier = Modifier.None) {
         modifier = modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        val count = remember { mutableStateOf(0) }
         Text(
-            text = "I am a Composer",
+            text = "I am the Composer n#${count.value}",
             modifier = Modifier.padding(all = 16.dp)
         )
+        Divider(color = Color.LightGray, thickness = 8.dp)
         LicencesButton()
+        Divider(color = Color.LightGray, thickness = 8.dp)
+        OutlinedButton(onClick = { count.value++ }) {
+            Text(text = " + 1 ")
+        }
     }
 }
 
