@@ -27,28 +27,35 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            HomeScreen(
-                modifier = Modifier.layoutId("homeScreen")
-            )
+            AppTheme {
+                HomeScreen(
+                    modifier = Modifier.layoutId("homeScreen")
+                )
+            }
         }
     }
 }
 
 @Composable
-fun HomeScreen(modifier: Modifier) {
+fun AppTheme(composableComponent: @Composable () -> Unit) {
     AndroidConferencesTheme {
         Surface(color = MaterialTheme.colors.background) {
-            Column(
-                modifier = modifier.fillMaxWidth(),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Text(
-                    text = "I am a Composer",
-                    modifier = Modifier.padding(all = 16.dp)
-                )
-                LicencesButton()
-            }
+            composableComponent()
         }
+    }
+}
+
+@Composable
+fun HomeScreen(modifier: Modifier = Modifier.None) {
+    Column(
+        modifier = modifier.fillMaxWidth(),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(
+            text = "I am a Composer",
+            modifier = Modifier.padding(all = 16.dp)
+        )
+        LicencesButton()
     }
 }
 
@@ -76,8 +83,18 @@ fun LicencesButtonPreview() {
     }
 }
 
-@Preview(group = "Screens", showBackground = true, heightDp = 600, widthDp = 300)
+@Preview(group = "Themed Screens", showBackground = true, heightDp = 600, widthDp = 300)
 @Composable
-fun HomeScreenPreview() {
-    HomeScreen(modifier = Modifier.background(Color.Cyan))
+fun HomeScreenThemedPreview() {
+    AppTheme {
+        HomeScreen()
+    }
+}
+
+@Preview(group = "Unthemed Screens", showBackground = true, heightDp = 600, widthDp = 300)
+@Composable
+fun HomeScreenUnthemedPreview() {
+    AppTheme {
+        HomeScreen(modifier = Modifier.background(Color.Cyan))
+    }
 }
