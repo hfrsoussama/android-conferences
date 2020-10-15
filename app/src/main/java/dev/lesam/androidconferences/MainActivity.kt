@@ -20,7 +20,7 @@ import androidx.compose.ui.platform.ContextAmbient
 import androidx.compose.ui.platform.setContent
 import androidx.compose.ui.unit.dp
 import androidx.ui.tooling.preview.Preview
-import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
+import com.google.android.gms.oss.licenses.OssLicensesActivity
 import dev.lesam.androidconferences.ui.AndroidConferencesTheme
 
 class MainActivity : AppCompatActivity() {
@@ -38,20 +38,41 @@ class MainActivity : AppCompatActivity() {
 fun HomeScreen(modifier: Modifier) {
     AndroidConferencesTheme {
         Surface(color = MaterialTheme.colors.background) {
-            Column(modifier = modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
-                val context = ContextAmbient.current
-                val openOssActivityOnClick = {
-                    context.startActivity(Intent(context, OssLicensesMenuActivity::class.java))
-                }
+            Column(
+                modifier = modifier.fillMaxWidth(),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
                 Text(
                     text = "I am a Composer",
                     modifier = Modifier.padding(all = 16.dp)
                 )
-                Button(onClick = openOssActivityOnClick) {
-                    Text(text = "See Licences")
-                }
+                LicencesButton()
             }
         }
+    }
+}
+
+@Composable
+fun LicencesButton() {
+    val context = ContextAmbient.current
+    val onClickOpenOssActivity = {
+        context.startActivity(
+            Intent(
+                context,
+                OssLicensesActivity::class.java
+            )
+        )
+    }
+    Button(onClick = onClickOpenOssActivity) {
+        Text(text = "See Licences")
+    }
+}
+
+@Preview
+@Composable
+fun LicencesButtonPreview() {
+    AndroidConferencesTheme {
+        LicencesButton()
     }
 }
 
