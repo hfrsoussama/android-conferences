@@ -58,9 +58,9 @@ fun HomeScreen(modifier: Modifier = Modifier.None) {
         )
         Divider(color = Color.LightGray, thickness = 8.dp)
         LicencesButton()
-        Divider(color = Color.LightGray, thickness = 8.dp)
-        OutlinedButton(onClick = { count.value++ }) {
-            Text(text = " + 1 ")
+        Divider(color = Color.LightGray, modifier = Modifier.weight(1f))
+        OutlinedButton(onClick = { count.value++ }, modifier = Modifier.padding(all = 12.dp)) {
+            Text(text = " + 1 ", style = MaterialTheme.typography.h4)
         }
     }
 }
