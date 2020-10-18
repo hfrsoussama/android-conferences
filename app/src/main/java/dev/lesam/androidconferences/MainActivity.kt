@@ -5,9 +5,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.Text
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -46,7 +44,7 @@ fun AppTheme(composableComponent: @Composable () -> Unit) {
 }
 
 @Composable
-fun HomeScreen(modifier: Modifier = Modifier.None) {
+fun HomeScreen(modifier: Modifier = Modifier) {
     Column(
         modifier = modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally
@@ -104,3 +102,21 @@ fun HomeScreenUnthemedPreview() {
         HomeScreen(modifier = Modifier.background(Color.Cyan))
     }
 }
+
+@Preview
+@Composable
+fun ConferenceListItem(conference: Conference = Conference()) {
+    AndroidConferencesTheme {
+        Card(elevation = 4.dp, modifier = Modifier.width(400.dp).height(92.dp)) {
+            Column(horizontalAlignment = Alignment.Start, modifier = Modifier.padding(8.dp)) {
+                Text(conference.name, style = MaterialTheme.typography.h4)
+                Text(conference.cityName, style = MaterialTheme.typography.subtitle1)
+            }
+        }
+    }
+}
+
+data class Conference(
+    val name: String = "Droidcon",
+    val cityName: String = "Berlin"
+)
