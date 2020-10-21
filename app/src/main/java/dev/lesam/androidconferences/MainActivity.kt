@@ -17,6 +17,7 @@ import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.platform.ContextAmbient
 import androidx.compose.ui.platform.setContent
 import androidx.compose.ui.unit.dp
+import androidx.ui.tooling.preview.Devices
 import androidx.ui.tooling.preview.Preview
 import com.google.android.gms.oss.licenses.OssLicensesActivity
 import dev.lesam.androidconferences.ui.AndroidConferencesTheme
@@ -95,7 +96,10 @@ fun HomeScreenThemedPreview() {
     }
 }
 
-@Preview(group = "Unthemed Screens", showBackground = true, heightDp = 600, widthDp = 300)
+@Preview(
+    group = "Unthemed Screens",
+    showBackground = true,
+    device = Devices.NEXUS_5X)
 @Composable
 fun HomeScreenUnthemedPreview() {
     AppTheme {
