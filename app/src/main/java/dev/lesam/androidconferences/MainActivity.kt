@@ -5,17 +5,22 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.Text
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.platform.ContextAmbient
 import androidx.compose.ui.platform.setContent
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.viewModel
 import androidx.ui.tooling.preview.Devices
@@ -59,6 +64,8 @@ fun HomeScreen(modifier: Modifier = Modifier, viewModel: MainViewModel = viewMod
         Divider(color = Color.LightGray, thickness = 8.dp)
         LicencesButton()
         Divider(color = Color.LightGray, modifier = Modifier.weight(1f))
+        PresenterCard()
+        Divider(color = Color.LightGray, modifier = Modifier.weight(1f))
         OutlinedButton(onClick = { viewModel.incrementCounter(1) }, modifier = Modifier.padding(all = 12.dp)) {
             Text(text = " + 1 ", style = MaterialTheme.typography.h4)
         }
@@ -81,7 +88,9 @@ fun LicencesButton() {
     }
 }
 
-@Preview
+@Preview(
+    group = "Single component"
+)
 @Composable
 fun LicencesButtonPreview() {
     AndroidConferencesTheme {
@@ -108,7 +117,9 @@ fun HomeScreenUnthemedPreview() {
     }
 }
 
-@Preview
+@Preview(
+    group = "Single component"
+)
 @Composable
 fun ConferenceListItem(conference: Conference = Conference()) {
     AndroidConferencesTheme {
@@ -125,3 +136,46 @@ data class Conference(
     val name: String = "Droidcon",
     val cityName: String = "Berlin"
 )
+
+@Preview(
+    group = "Single component",
+    widthDp = 400
+)
+@Composable
+fun PresenterCardPreview() {
+    Surface(color = MaterialTheme.colors.surface) {
+        PresenterCard()
+    }
+}
+
+@Composable
+fun PresenterCard(modifier: Modifier = Modifier) {
+    Row(
+        modifier = modifier
+            .padding(all = 8.dp)
+            .clip(RoundedCornerShape(8.dp))
+            .background(MaterialTheme.colors.surface)
+            .clickable(onClick = { /* Do Nothing */ })
+            .padding(all = 8.dp)
+    ) {
+        Surface(
+            modifier = Modifier.preferredSize(62.dp),
+            shape = CircleShape,
+            color = MaterialTheme.colors.onSurface.copy(alpha = 0.2f)
+        ) {
+
+        }
+        Column(
+            modifier = modifier.padding(start = 8.dp).align(Alignment.CenterVertically)
+        ) {
+            Text(text = "Oussama Hafferssas", fontWeight = FontWeight.Bold)
+            ProvideEmphasis(emphasis = AmbientEmphasisLevels.current.medium) {
+                Text(
+                    text = "Interesting Facts About Compose - Alpha Edition",
+                    style = MaterialTheme.typography.body2
+                )
+            }
+        }
+
+    }
+}
