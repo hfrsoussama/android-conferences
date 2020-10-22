@@ -8,8 +8,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -17,6 +17,7 @@ import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.platform.ContextAmbient
 import androidx.compose.ui.platform.setContent
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.viewinterop.viewModel
 import androidx.ui.tooling.preview.Devices
 import androidx.ui.tooling.preview.Preview
 import com.google.android.gms.oss.licenses.OssLicensesActivity
@@ -45,20 +46,20 @@ fun AppTheme(composableComponent: @Composable () -> Unit) {
 }
 
 @Composable
-fun HomeScreen(modifier: Modifier = Modifier) {
+fun HomeScreen(modifier: Modifier = Modifier, viewModel: MainViewModel = viewModel()) {
     Column(
         modifier = modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        val count = remember { mutableStateOf(0) }
+        val count: Int by viewModel.counter.observeAsState(0)
         Text(
-            text = "I am the Composer n#${count.value}",
+            text = "I am the Composer n#${count}",
             modifier = Modifier.padding(all = 16.dp)
         )
         Divider(color = Color.LightGray, thickness = 8.dp)
         LicencesButton()
         Divider(color = Color.LightGray, modifier = Modifier.weight(1f))
-        OutlinedButton(onClick = { count.value++ }, modifier = Modifier.padding(all = 12.dp)) {
+        OutlinedButton(onClick = { viewModel.incrementCounter(1) }, modifier = Modifier.padding(all = 12.dp)) {
             Text(text = " + 1 ", style = MaterialTheme.typography.h4)
         }
     }
