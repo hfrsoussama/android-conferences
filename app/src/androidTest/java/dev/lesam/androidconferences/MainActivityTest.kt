@@ -27,14 +27,14 @@ class MainActivityTest {
     }
 
     @Test
-    fun homeScreenShouldHaveFiveComposables() {
+    fun homeScreenShouldHaveFourComposables() {
         composeAndroidTestRule.apply {
 
             onRoot().printToLog(tag = "##### LOG-TAG #####")
 
             onNodeWithTag(homeScreenTestTag)
                 .onChildren()
-                .assertCountEquals(3) // Divder() Composable is not counted as a Node
+                .assertCountEquals(4) // Divder() Composable is not counted as a Node
         }
     }
 }
