@@ -2,6 +2,7 @@ package dev.lesam.androidconferences
 
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
+import androidx.lifecycle.Lifecycle
 import androidx.ui.test.*
 import dev.lesam.androidconferences.ui.AndroidConferencesTheme
 import org.junit.Before
@@ -37,4 +38,14 @@ class MainActivityTest {
                 .assertCountEquals(4) // Divder() Composable is not counted as a Node
         }
     }
+
+    @Test
+    fun buttonToSeeLicencesMustHaveAction() {
+        composeAndroidTestRule.apply {
+            this.activityRule.scenario.moveToState(Lifecycle.State.RESUMED) // Activity must be in the resume state
+            onNodeWithText("See Licences")
+                .assertHasClickAction()
+        }
+    }
+
 }
