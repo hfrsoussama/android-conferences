@@ -5,7 +5,6 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.Text
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -61,11 +60,7 @@ fun HomeScreen(modifier: Modifier = Modifier, viewModel: MainViewModel = viewMod
             text = "I am the Composer n#${count}",
             modifier = Modifier.padding(all = 16.dp)
         )
-        Divider(color = Color.LightGray, thickness = 8.dp)
-        LicencesButton()
-        Divider(color = Color.LightGray, modifier = Modifier.weight(1f))
         PresenterCard()
-        Divider(color = Color.LightGray, modifier = Modifier.weight(1f))
         OutlinedButton(onClick = { viewModel.incrementCounter(1) }, modifier = Modifier.padding(all = 12.dp)) {
             Text(text = " + 1 ", style = MaterialTheme.typography.h4)
         }
@@ -148,27 +143,29 @@ fun PresenterCardPreview() {
     }
 }
 
+data class Presenter(val name: String, val familyName: String)
+
 @Composable
-fun PresenterCard(modifier: Modifier = Modifier) {
+fun PresenterCard(
+    modifier: Modifier = Modifier,
+    presenter: Presenter = Presenter("Ousssama", "Hafferssas")
+) {
     Row(
         modifier = modifier
             .padding(all = 8.dp)
             .clip(RoundedCornerShape(8.dp))
             .background(MaterialTheme.colors.surface)
-            .clickable(onClick = { /* Do Nothing */ })
             .padding(all = 8.dp)
     ) {
         Surface(
             modifier = Modifier.preferredSize(62.dp),
             shape = CircleShape,
             color = MaterialTheme.colors.onSurface.copy(alpha = 0.2f)
-        ) {
-
-        }
+        ) { }
         Column(
             modifier = modifier.padding(start = 8.dp).align(Alignment.CenterVertically)
         ) {
-            Text(text = "Oussama Hafferssas", fontWeight = FontWeight.Bold)
+            Text(text = "${presenter.name} ${presenter.familyName}", fontWeight = FontWeight.Bold)
             ProvideEmphasis(emphasis = AmbientEmphasisLevels.current.medium) {
                 Text(
                     text = "Interesting Facts About Compose - Alpha Edition",
@@ -176,6 +173,5 @@ fun PresenterCard(modifier: Modifier = Modifier) {
                 )
             }
         }
-
     }
 }
