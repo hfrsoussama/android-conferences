@@ -10,9 +10,9 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.sharp.AddAlert
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.layoutId
@@ -46,6 +46,8 @@ fun AppTheme(composableComponent: @Composable () -> Unit) {
 
 @Composable
 fun HomeScreen(modifier: Modifier = Modifier) {
+    val viewModel: MainViewModel = viewModel()
+    val counter by viewModel.counter.observeAsState()
     Scaffold(
         topBar = {
             TopAppBar(
@@ -63,25 +65,31 @@ fun HomeScreen(modifier: Modifier = Modifier) {
             )
         }
     ) { innerPadding ->
-        HomeScreenBody(modifier = modifier.padding(innerPadding))
+        HomeScreenBody(
+            modifier = modifier.padding(innerPadding),
+            onClick = { viewModel.incrementCounter(1) },
+            count = counter
+        )
     }
 }
 
 @Composable
-fun HomeScreenBody(modifier: Modifier = Modifier) {
+fun HomeScreenBody(
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit = {},
+    count: Int? = 0
+) {
     Column(
         modifier = modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        val viewModel: MainViewModel = viewModel()
-        val count: Int by viewModel.counter.observeAsState(0)
         Text(
             text = "I am the Composer n#${count}",
             modifier = Modifier.padding(all = 16.dp)
         )
         PresenterCard()
         OutlinedButton(
-            onClick = { viewModel.incrementCounter(1) },
+            onClick = onClick,
             modifier = Modifier.padding(all = 12.dp)
         ) {
             Text(text = " + 1 ", style = MaterialTheme.typography.h4)
@@ -94,7 +102,7 @@ fun HomeScreenBody(modifier: Modifier = Modifier) {
 @Composable
 fun HomeScreenThemedPreview() {
     AppTheme {
-        HomeScreen()
+        HomeScreenBody()
     }
 }
 
