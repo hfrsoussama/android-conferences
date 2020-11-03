@@ -19,24 +19,34 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.ui.tooling.preview.Preview
+import androidx.ui.tooling.preview.PreviewParameter
+import androidx.ui.tooling.preview.PreviewParameterProvider
+import dev.lesam.androidconferences.model.Performance
 
-@Preview(
-    group = "Single component",
-    widthDp = 400
-)
+
+class PerformanceProvider: PreviewParameterProvider<Performance> {
+    override val values: Sequence<Performance>
+        get() = sequenceOf(
+            getListOfPerformances().first()
+        )
+}
+
+
+@Preview(group = "Single component", widthDp = 400)
 @Composable
-fun PresenterCardPreview() {
+fun PresenterCardPreview(
+    @PreviewParameter(PerformanceProvider::class) performance: Performance
+) {
     Surface(color = MaterialTheme.colors.surface) {
-        PresenterCard()
+        PresenterCard(performance = performance)
     }
 }
 
-data class Presenter(val name: String, val familyName: String)
 
 @Composable
 fun PresenterCard(
     modifier: Modifier = Modifier,
-    presenter: Presenter = Presenter("Ousssama", "Hafferssas")
+    performance: Performance
 ) {
     Row(
         modifier = modifier
@@ -53,7 +63,7 @@ fun PresenterCard(
         Column(
             modifier = modifier.padding(start = 8.dp).align(Alignment.CenterVertically)
         ) {
-            Text(text = "${presenter.name} ${presenter.familyName}", fontWeight = FontWeight.Bold)
+            Text(text = "${performance.presenter.name} ${performance.presenter.familyName}", fontWeight = FontWeight.Bold)
             ProvideEmphasis(emphasis = AmbientEmphasisLevels.current.medium) {
                 Text(
                     text = "Interesting Facts About Compose - Alpha Edition",

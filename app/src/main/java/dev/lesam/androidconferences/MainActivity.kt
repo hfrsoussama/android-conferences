@@ -20,6 +20,9 @@ import androidx.compose.ui.platform.setContent
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.viewModel
 import androidx.ui.tooling.preview.Preview
+import androidx.ui.tooling.preview.PreviewParameter
+import androidx.ui.tooling.preview.PreviewParameterProvider
+import dev.lesam.androidconferences.model.Performance
 import dev.lesam.androidconferences.ui.AndroidConferencesTheme
 
 class MainActivity : AppCompatActivity() {
@@ -48,6 +51,7 @@ fun AppTheme(composableComponent: @Composable () -> Unit) {
 fun HomeScreen(modifier: Modifier = Modifier) {
     val viewModel: MainViewModel = viewModel()
     val counter by viewModel.counter.observeAsState()
+    val performances by viewModel.listOfPerformances.observeAsState()
     Scaffold(
         topBar = {
             TopAppBar(
@@ -68,7 +72,8 @@ fun HomeScreen(modifier: Modifier = Modifier) {
         HomeScreenBody(
             modifier = modifier.padding(innerPadding),
             onClick = { viewModel.incrementCounter(1) },
-            count = counter
+            count = counter,
+            performances = performances
         )
     }
 }
@@ -77,7 +82,8 @@ fun HomeScreen(modifier: Modifier = Modifier) {
 fun HomeScreenBody(
     modifier: Modifier = Modifier,
     onClick: () -> Unit = {},
-    count: Int? = 0
+    count: Int? = 0,
+    performances: List<Performance>?
 ) {
     Column(
         modifier = modifier.fillMaxWidth(),
@@ -87,7 +93,13 @@ fun HomeScreenBody(
             text = "I am the Composer n#${count}",
             modifier = Modifier.padding(all = 16.dp)
         )
-        PresenterCard()
+
+        performances?.forEach {
+            PresenterCard(
+                performance = it
+            )
+        }
+
         OutlinedButton(
             onClick = onClick,
             modifier = Modifier.padding(all = 12.dp)
@@ -97,12 +109,20 @@ fun HomeScreenBody(
     }
 }
 
+class PerformancesListProvider: PreviewParameterProvider<Performance> {
+    override val values: Sequence<Performance>
+        get() = getListOfPerformances().asSequence()
+
+}
+
 
 @Preview(group = "Themed Screens", showBackground = true, heightDp = 600, widthDp = 300)
 @Composable
-fun HomeScreenThemedPreview() {
+fun HomeScreenThemedPreview(
+    @PreviewParameter(PerformancesListProvider::class) performances: List<Performance>?
+) {
     AppTheme {
-        HomeScreenBody()
+        HomeScreenBody(performances = performances)
     }
 }
 
