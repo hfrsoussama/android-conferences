@@ -19,6 +19,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.ui.tooling.preview.Preview
+import kotlin.random.Random
 
 @Preview(
     group = "Single component",
@@ -38,17 +39,19 @@ fun PresenterCard(
     modifier: Modifier = Modifier,
     presenter: Presenter = Presenter("Ousssama", "Hafferssas")
 ) {
+    val color  = MaterialTheme.colors.onSurface
+        .copy(alpha = 0.2f, red = Random.nextInt(0, 100).div(100f))
     Row(
         modifier = modifier
             .padding(all = 8.dp)
             .clip(RoundedCornerShape(8.dp))
-            .background(MaterialTheme.colors.surface)
+            .background(color = color)
             .padding(all = 8.dp)
     ) {
         Surface(
             modifier = Modifier.preferredSize(62.dp),
             shape = CircleShape,
-            color = MaterialTheme.colors.onSurface.copy(alpha = 0.2f)
+            color = MaterialTheme.colors.onSurface.copy(alpha = 0.2f, red = Random(255).nextFloat())
         ) { }
         Column(
             modifier = modifier.padding(start = 8.dp).align(Alignment.CenterVertically)

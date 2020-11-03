@@ -3,9 +3,8 @@ package dev.lesam.androidconferences
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.Text
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Info
@@ -21,6 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.viewModel
 import androidx.ui.tooling.preview.Preview
 import dev.lesam.androidconferences.ui.AndroidConferencesTheme
+import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,6 +48,8 @@ fun AppTheme(composableComponent: @Composable () -> Unit) {
 fun HomeScreen(modifier: Modifier = Modifier) {
     val viewModel: MainViewModel = viewModel()
     val counter by viewModel.counter.observeAsState()
+    val color  = MaterialTheme.colors.onSurface
+        .copy(alpha = 0.2f, red = Random.nextInt(0, 100).div(100f))
     Scaffold(
         topBar = {
             TopAppBar(
@@ -63,8 +65,16 @@ fun HomeScreen(modifier: Modifier = Modifier) {
                     }
                 }
             )
+        },
+        bottomBar = {
+            val colorBot  = MaterialTheme.colors.onSurface
+                .copy(alpha = 0.2f, red = Random.nextInt(0, 100).div(100f))
+            Row(modifier = Modifier.background(color = colorBot).height(34.dp).fillMaxWidth()) {
+
+            }
         }
     ) { innerPadding ->
+
         HomeScreenBody(
             modifier = modifier.padding(innerPadding),
             onClick = { viewModel.incrementCounter(1) },
@@ -79,8 +89,10 @@ fun HomeScreenBody(
     onClick: () -> Unit = {},
     count: Int? = 0
 ) {
+    val color  = MaterialTheme.colors.onSurface
+        .copy(alpha = 0.2f, red = Random.nextInt(0, 100).div(100f))
     Column(
-        modifier = modifier.fillMaxWidth(),
+        modifier = modifier.fillMaxWidth().background(color = color),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
