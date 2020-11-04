@@ -3,6 +3,7 @@ package dev.lesam.androidconferences
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.Text
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -39,8 +40,8 @@ class MainActivity : AppCompatActivity() {
 }
 
 @Composable
-fun AppTheme(composableComponent: @Composable () -> Unit) {
-    AndroidConferencesTheme {
+fun AppTheme(darkTheme: Boolean = isSystemInDarkTheme(), composableComponent: @Composable () -> Unit) {
+    AndroidConferencesTheme(darkTheme = darkTheme) {
         Surface(color = MaterialTheme.colors.background) {
             composableComponent()
         }
@@ -95,7 +96,7 @@ fun HomeScreenBody(
         )
 
         performances?.forEach {
-            PresenterCard(
+            PerformanceResumeCard(
                 performance = it
             )
         }

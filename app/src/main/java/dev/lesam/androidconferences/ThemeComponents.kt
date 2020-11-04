@@ -8,10 +8,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.preferredSize
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.AmbientEmphasisLevels
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.ProvideEmphasis
-import androidx.compose.material.Surface
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -32,19 +29,37 @@ class PerformanceProvider: PreviewParameterProvider<Performance> {
 }
 
 
-@Preview(group = "Single component", widthDp = 400)
+class ThemesProvider : PreviewParameterProvider<Boolean> {
+    override val values: Sequence<Boolean>
+        get() = sequenceOf(false, true)
+}
+
 @Composable
-fun PresenterCardPreview(
-    @PreviewParameter(PerformanceProvider::class) performance: Performance
+fun AppThemedPreview(
+    @PreviewParameter(ThemesProvider::class) isDarkTheme: Boolean,
+    content: @Composable () -> Unit
 ) {
-    Surface(color = MaterialTheme.colors.surface) {
-        PresenterCard(performance = performance)
+    AppTheme(isDarkTheme) {
+        content()
     }
 }
 
 
+@Preview(group = "Single component", widthDp = 400)
 @Composable
-fun PresenterCard(
+fun PresenterCardPreview2(
+    @PreviewParameter(ThemesProvider::class) isDarkTheme: Boolean,
+) {
+    AppThemedPreview(isDarkTheme = isDarkTheme) {
+        PerformanceResumeCard(performance = getListOfPerformances().first())
+    }
+}
+
+
+
+
+@Composable
+fun PerformanceResumeCard(
     modifier: Modifier = Modifier,
     performance: Performance
 ) {
