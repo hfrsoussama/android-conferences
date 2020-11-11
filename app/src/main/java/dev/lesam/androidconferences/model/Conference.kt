@@ -6,19 +6,19 @@ data class Presenter(
     val bio: String = ""
 )
 
-data class Performance(
+data class Presentation(
     val presenter: Presenter,
     val title: String,
-    val type: PerformanceType = PerformanceType.Talk,
+    val type: PresentationType = PresentationType.Talk,
     val synopsis: String,
     val startsAt: Long,
     val duration: Int = 30,
     val requiredLevel: Level = Level.Fundamentals
 )
 
-sealed class PerformanceType {
-    object Talk : PerformanceType()
-    object Workshop : PerformanceType()
+sealed class PresentationType {
+    object Talk : PresentationType()
+    object Workshop : PresentationType()
 }
 
 sealed class Level {

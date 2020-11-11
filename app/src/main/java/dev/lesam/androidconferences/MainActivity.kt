@@ -24,12 +24,12 @@ import androidx.compose.ui.viewinterop.viewModel
 import androidx.ui.tooling.preview.Preview
 import androidx.ui.tooling.preview.PreviewParameter
 import androidx.ui.tooling.preview.PreviewParameterProvider
-import dev.lesam.androidconferences.model.Performance
+import dev.lesam.androidconferences.model.Presentation
 import dev.lesam.androidconferences.ui.AppTheme
 
-class PerformancesListProvider: PreviewParameterProvider<List<Performance>> {
-    override val values: Sequence<List<Performance>>
-        get() = listOf(getListOfPerformances().take(5)).asSequence()
+class PresentationListProvider: PreviewParameterProvider<List<Presentation>> {
+    override val values: Sequence<List<Presentation>>
+        get() = listOf(getListOfPresentations().take(5)).asSequence()
 
 }
 
@@ -37,10 +37,10 @@ class PerformancesListProvider: PreviewParameterProvider<List<Performance>> {
 @Preview(group = "Themed Screens", showBackground = true, heightDp = 800, widthDp = 400)
 @Composable
 fun HomeScreenThemedPreview(
-    @PreviewParameter(PerformancesListProvider::class) performances: List<Performance>
+    @PreviewParameter(PresentationListProvider::class) presentations: List<Presentation>
 ) {
     AppTheme {
-        HomeScreen(performances = performances)
+        HomeScreen(presentations = presentations)
     }
 }
 
@@ -62,21 +62,21 @@ fun HomeScreenViewModelComposable(
     modifier: Modifier = Modifier,
     viewModel: HomeScreenViewModel = viewModel()
 ) {
-    val performances by viewModel.listOfPerformances.observeAsState()
-    val onPerformancesListItemClick = { performance: Performance -> viewModel.printItem(performance) }
+    val presentations by viewModel.listOfPresentations.observeAsState()
+    val onPresentationsListItemClick = { presentation: Presentation -> viewModel.printItem(presentation) }
 
     HomeScreen(
         modifier = modifier,
-        performances = performances.orEmpty(),
-        onPerformancesListItemClick = onPerformancesListItemClick
+        presentations = presentations.orEmpty(),
+        onPresentationsListItemClick = onPresentationsListItemClick
     )
 }
 
 @Composable
 fun HomeScreen(
     modifier: Modifier = Modifier,
-    performances: List<Performance>,
-    onPerformancesListItemClick: (Performance) -> Unit = {}
+    presentations: List<Presentation>,
+    onPresentationsListItemClick: (Presentation) -> Unit = {}
 ) {
     Scaffold(
         topBar = {
@@ -97,8 +97,8 @@ fun HomeScreen(
     ) { innerPadding ->
         HomeScreenBody(
             modifier = modifier.padding(innerPadding),
-            onClick = onPerformancesListItemClick,
-            performances = performances
+            onClick = onPresentationsListItemClick,
+            presentations = presentations
         )
     }
 
@@ -107,16 +107,16 @@ fun HomeScreen(
 @Composable
 fun HomeScreenBody(
     modifier: Modifier = Modifier,
-    performances: List<Performance>,
-    onClick: (Performance) -> Unit = {}
+    presentations: List<Presentation>,
+    onClick: (Presentation) -> Unit = {}
 ) {
     LazyColumnFor(
         modifier = modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally,
-        items = performances,
+        items = presentations,
     ) { item ->
-        PerformanceResumeCard(
-            performance = item,
+        PresentationResumeCard(
+            presentation = item,
             onClick = onClick
         )
     }

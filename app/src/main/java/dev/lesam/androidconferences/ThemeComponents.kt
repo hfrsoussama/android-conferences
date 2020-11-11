@@ -22,15 +22,15 @@ import androidx.compose.ui.unit.dp
 import androidx.ui.tooling.preview.Preview
 import androidx.ui.tooling.preview.PreviewParameter
 import androidx.ui.tooling.preview.PreviewParameterProvider
-import dev.lesam.androidconferences.model.Performance
+import dev.lesam.androidconferences.model.Presentation
 import dev.lesam.androidconferences.ui.AppThemedPreview
 import dev.lesam.androidconferences.ui.ThemesProvider
 
 
-class PerformanceProvider: PreviewParameterProvider<Performance> {
-    override val values: Sequence<Performance>
+class PresentationProvider: PreviewParameterProvider<Presentation> {
+    override val values: Sequence<Presentation>
         get() = sequenceOf(
-            getListOfPerformances().first()
+            getListOfPresentations().first()
         )
 }
 
@@ -42,7 +42,7 @@ fun PresenterCardPreview2(
     @PreviewParameter(ThemesProvider::class) isDarkTheme: Boolean,
 ) {
     AppThemedPreview(isDarkTheme = isDarkTheme) {
-        PerformanceResumeCard(performance = getListOfPerformances().first())
+        PresentationResumeCard(presentation = getListOfPresentations().first())
     }
 }
 
@@ -50,10 +50,10 @@ fun PresenterCardPreview2(
 
 
 @Composable
-fun PerformanceResumeCard(
+fun PresentationResumeCard(
     modifier: Modifier = Modifier,
-    performance: Performance,
-    onClick: (Performance) -> Unit = {}
+    presentation: Presentation,
+    onClick: (Presentation) -> Unit = {}
 ) {
     Row(
         modifier = modifier
@@ -61,7 +61,7 @@ fun PerformanceResumeCard(
             .clip(RoundedCornerShape(8.dp))
             .background(MaterialTheme.colors.surface)
             .padding(all = 8.dp)
-            .clickable(onClick = { onClick(performance) })
+            .clickable(onClick = { onClick(presentation) })
     ) {
         Surface(
             modifier = Modifier.preferredSize(62.dp),
@@ -72,12 +72,12 @@ fun PerformanceResumeCard(
             modifier = modifier.padding(start = 8.dp).align(Alignment.CenterVertically)
         ) {
             Text(
-                text = "${performance.presenter.name} ${performance.presenter.familyName}",
+                text = "${presentation.presenter.name} ${presentation.presenter.familyName}",
                 fontWeight = FontWeight.Bold
             )
             ProvideEmphasis(emphasis = AmbientEmphasisLevels.current.medium) {
                 Text(
-                    text = performance.title,
+                    text = presentation.title,
                     style = MaterialTheme.typography.body2
                 )
             }

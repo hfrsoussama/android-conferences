@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import dev.lesam.androidconferences.model.Level
-import dev.lesam.androidconferences.model.Performance
+import dev.lesam.androidconferences.model.Presentation
 import dev.lesam.androidconferences.model.Presenter
 import java.util.*
 
@@ -13,10 +13,10 @@ class HomeScreenViewModel : ViewModel() {
     private val _counter = MutableLiveData(0)
     val counter: LiveData<Int> = _counter
 
-    private val _listOfPerformances = MutableLiveData(
-        getListOfPerformances()
+    private val _listOfPresentations = MutableLiveData(
+        getListOfPresentations()
     )
-    val listOfPerformances: LiveData<List<Performance>> = _listOfPerformances
+    val listOfPresentations: LiveData<List<Presentation>> = _listOfPresentations
 
 
 
@@ -24,15 +24,15 @@ class HomeScreenViewModel : ViewModel() {
         _counter.value = _counter.value?.plus(incrementBy)
     }
 
-    fun printItem(performance: Performance) {
-        println(performance)
+    fun printItem(presentation: Presentation) {
+        println(presentation)
     }
 
 }
 
-fun getListOfPerformances(): List<Performance> {
-    val performances = mutableListOf<Performance>()
-    val performance = Performance(
+fun getListOfPresentations(): List<Presentation> {
+    val presentations = mutableListOf<Presentation>()
+    val presentation = Presentation(
         presenter = Presenter(
             name = "Oussama",
             familyName = "Hafferssas",
@@ -48,7 +48,7 @@ fun getListOfPerformances(): List<Performance> {
     )
 
     repeat(10) {
-        performances.add(performance.copy())
+        presentations.add(presentation.copy())
     }
-    return performances.toList()
+    return presentations.toList()
 }
