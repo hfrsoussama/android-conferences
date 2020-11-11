@@ -13,7 +13,8 @@ data class Presentation(
     val synopsis: String,
     val startsAt: Long,
     val duration: Int = 30,
-    val requiredLevel: Level = Level.Fundamentals
+    val requiredLevel: Level = Level.Fundamentals,
+    val id: Int = 0
 )
 
 sealed class PresentationType {

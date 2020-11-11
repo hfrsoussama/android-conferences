@@ -80,7 +80,7 @@ fun PresentationResumeCard(
                 )
                 Providers(AmbientContentAlpha provides ContentAlpha.medium, children = {
                     Text(
-                        text = presentation.title,
+                        text = "#${presentation.id} ${presentation.title}",
                         style = MaterialTheme.typography.body2
                     )
                 })

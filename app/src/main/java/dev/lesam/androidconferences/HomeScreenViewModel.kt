@@ -48,7 +48,7 @@ fun getListOfPresentations(): List<Presentation> {
     )
 
     repeat(10) {
-        presentations.add(presentation.copy())
+        presentations.add(presentation.copy(id = it))
     }
     return presentations.toList()
 }
