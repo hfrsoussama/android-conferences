@@ -19,13 +19,22 @@ class HomeScreenViewModel : ViewModel() {
     val listOfPresentations: LiveData<List<Presentation>> = _listOfPresentations
 
 
-
     fun incrementCounter(incrementBy: Int) {
         _counter.value = _counter.value?.plus(incrementBy)
     }
 
     fun printItem(presentation: Presentation) {
         println(presentation)
+    }
+
+    fun addNewPresentation() {
+        val lastPresentation = _listOfPresentations.value?.last()
+        lastPresentation?.let {
+            _listOfPresentations.value =
+                _listOfPresentations.value.orEmpty().plus(
+                        lastPresentation.copy(id = lastPresentation.id + 1)
+                    )
+        }
     }
 
 }

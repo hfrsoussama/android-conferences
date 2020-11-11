@@ -8,8 +8,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumnFor
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Info
-import androidx.compose.material.icons.sharp.AddAlert
+import androidx.compose.material.icons.sharp.PlusOne
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
@@ -62,11 +61,13 @@ fun HomeScreenViewModelComposable(
 ) {
     val presentations by viewModel.listOfPresentations.observeAsState()
     val onPresentationsListItemClick = { presentation: Presentation -> viewModel.printItem(presentation) }
+    val onAddPresentationClick = { viewModel.addNewPresentation() }
 
     HomeScreen(
         modifier = modifier,
         presentations = presentations.orEmpty(),
-        onPresentationsListItemClick = onPresentationsListItemClick
+        onPresentationsListItemClick = onPresentationsListItemClick,
+        onAddPresentationClick = onAddPresentationClick
     )
 }
 
@@ -74,7 +75,8 @@ fun HomeScreenViewModelComposable(
 fun HomeScreen(
     modifier: Modifier = Modifier,
     presentations: List<Presentation>,
-    onPresentationsListItemClick: (Presentation) -> Unit = {}
+    onPresentationsListItemClick: (Presentation) -> Unit = {},
+    onAddPresentationClick: () -> Unit = {}
 ) {
     Scaffold(
         topBar = {
@@ -83,11 +85,8 @@ fun HomeScreen(
                     Text(text = "Android Conferences", maxLines = 1)
                 },
                 actions = {
-                    IconButton(onClick = {}) {
-                        Icon(asset = Icons.Filled.Info)
-                    }
-                    IconButton(onClick = {}) {
-                        Icon(asset = Icons.Sharp.AddAlert)
+                    IconButton(onClick = onAddPresentationClick) {
+                        Icon(asset = Icons.Sharp.PlusOne)
                     }
                 }
             )
