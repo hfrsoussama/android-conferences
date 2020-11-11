@@ -9,10 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.preferredSize
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.AmbientEmphasisLevels
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.ProvideEmphasis
-import androidx.compose.material.Surface
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -55,34 +52,40 @@ fun PresentationResumeCard(
     presentation: Presentation,
     onPresentationClick: (Presentation) -> Unit = {}
 ) {
-    Row(
+    Card(
         modifier = modifier
-            .padding(all = 8.dp)
             .clip(RoundedCornerShape(8.dp))
-            .background(MaterialTheme.colors.surface)
             .padding(all = 8.dp)
-            .clickable(onClick = { onPresentationClick(presentation) })
+            .clickable(onClick = { onPresentationClick(presentation) }),
+        elevation = 4.dp,
     ) {
-        Surface(
-            modifier = Modifier.preferredSize(62.dp),
-            shape = CircleShape,
-            color = MaterialTheme.colors.onSurface.copy(alpha = 0.2f)
-        ) { }
-        Column(
-            modifier = modifier
-                .padding(start = 8.dp)
-                .align(Alignment.CenterVertically)
+        Row(
+            modifier = Modifier
+                .background(MaterialTheme.colors.surface)
+                .padding(all = 8.dp)
         ) {
-            Text(
-                text = "${presentation.presenter.name} ${presentation.presenter.familyName}",
-                fontWeight = FontWeight.Bold
-            )
-            ProvideEmphasis(emphasis = AmbientEmphasisLevels.current.medium) {
+            Surface(
+                modifier = Modifier.preferredSize(62.dp),
+                shape = CircleShape,
+                color = MaterialTheme.colors.onSurface.copy(alpha = 0.2f)
+            ) { }
+            Column(
+                modifier = modifier
+                    .padding(start = 8.dp)
+                    .align(Alignment.CenterVertically)
+            ) {
                 Text(
-                    text = presentation.title,
-                    style = MaterialTheme.typography.body2
+                    text = "${presentation.presenter.name} ${presentation.presenter.familyName}",
+                    fontWeight = FontWeight.Bold
                 )
+                ProvideEmphasis(emphasis = AmbientEmphasisLevels.current.medium) {
+                    Text(
+                        text = presentation.title,
+                        style = MaterialTheme.typography.body2
+                    )
+                }
             }
         }
     }
+
 }
