@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AndroidConferences">
         <activity
-            android:name=".MainActivity"
+            android:name=".HomeScreenActivity"
             android:label="@string/app_name"
             android:theme="@style/Theme.AndroidConferences.NoActionBar">
             <intent-filter>

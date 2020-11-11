@@ -46,7 +46,7 @@ fun HomeScreenThemedPreview(
     }
 }
 
-class MainActivity : AppCompatActivity() {
+class HomeScreenActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {

@@ -9,10 +9,10 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
-class MainActivityTest {
+class HomeScreenActivityTest {
 
     @get: Rule
-    val composeAndroidTestRule = createAndroidComposeRule<MainActivity>()
+    val composeAndroidTestRule = createAndroidComposeRule<HomeScreenActivity>()
 
     private val homeScreenTestTag = "HomeScreen"
 
