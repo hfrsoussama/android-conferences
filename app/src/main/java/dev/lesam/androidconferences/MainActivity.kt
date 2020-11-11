@@ -34,13 +34,13 @@ class PerformancesListProvider: PreviewParameterProvider<List<Performance>> {
 }
 
 
-@Preview(group = "Themed Screens", showBackground = true, heightDp = 600, widthDp = 300)
+@Preview(group = "Themed Screens", showBackground = true, heightDp = 800, widthDp = 400)
 @Composable
 fun HomeScreenThemedPreview(
     @PreviewParameter(PerformancesListProvider::class) performances: List<Performance>
 ) {
     AppTheme {
-        HomeScreenBody(performances = performances)
+        HomeScreen(performances = performances)
     }
 }
 
@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             AppTheme {
-                HomeScreen(
+                HomeScreenViewModelComposable(
                     modifier = Modifier.layoutId("homeScreen")
                 )
             }
@@ -58,9 +58,26 @@ class MainActivity : AppCompatActivity() {
 }
 
 @Composable
-fun HomeScreen(modifier: Modifier = Modifier) {
-    val viewModel: MainViewModel = viewModel()
+fun HomeScreenViewModelComposable(
+    modifier: Modifier = Modifier,
+    viewModel: HomeScreenViewModel = viewModel()
+) {
     val performances by viewModel.listOfPerformances.observeAsState()
+    val onPerformancesListItemClick = { performance: Performance -> viewModel.printItem(performance) }
+
+    HomeScreen(
+        modifier = modifier,
+        performances = performances.orEmpty(),
+        onPerformancesListItemClick = onPerformancesListItemClick
+    )
+}
+
+@Composable
+fun HomeScreen(
+    modifier: Modifier = Modifier,
+    performances: List<Performance>,
+    onPerformancesListItemClick: (Performance) -> Unit = {}
+) {
     Scaffold(
         topBar = {
             TopAppBar(
@@ -80,10 +97,11 @@ fun HomeScreen(modifier: Modifier = Modifier) {
     ) { innerPadding ->
         HomeScreenBody(
             modifier = modifier.padding(innerPadding),
-            onClick = { performance -> viewModel.printItem(performance) },
-            performances = performances.orEmpty()
+            onClick = onPerformancesListItemClick,
+            performances = performances
         )
     }
+
 }
 
 @Composable

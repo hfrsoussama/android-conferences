@@ -8,7 +8,7 @@ import dev.lesam.androidconferences.model.Performance
 import dev.lesam.androidconferences.model.Presenter
 import java.util.*
 
-class MainViewModel : ViewModel() {
+class HomeScreenViewModel : ViewModel() {
 
     private val _counter = MutableLiveData(0)
     val counter: LiveData<Int> = _counter
