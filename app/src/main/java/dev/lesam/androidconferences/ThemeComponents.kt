@@ -53,7 +53,7 @@ fun PresenterCardPreview2(
 fun PresentationResumeCard(
     modifier: Modifier = Modifier,
     presentation: Presentation,
-    onClick: (Presentation) -> Unit = {}
+    onPresentationClick: (Presentation) -> Unit = {}
 ) {
     Row(
         modifier = modifier
@@ -61,7 +61,7 @@ fun PresentationResumeCard(
             .clip(RoundedCornerShape(8.dp))
             .background(MaterialTheme.colors.surface)
             .padding(all = 8.dp)
-            .clickable(onClick = { onClick(presentation) })
+            .clickable(onClick = { onPresentationClick(presentation) })
     ) {
         Surface(
             modifier = Modifier.preferredSize(62.dp),
@@ -69,7 +69,9 @@ fun PresentationResumeCard(
             color = MaterialTheme.colors.onSurface.copy(alpha = 0.2f)
         ) { }
         Column(
-            modifier = modifier.padding(start = 8.dp).align(Alignment.CenterVertically)
+            modifier = modifier
+                .padding(start = 8.dp)
+                .align(Alignment.CenterVertically)
         ) {
             Text(
                 text = "${presentation.presenter.name} ${presentation.presenter.familyName}",

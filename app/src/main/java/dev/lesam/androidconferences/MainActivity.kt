@@ -97,8 +97,8 @@ fun HomeScreen(
     ) { innerPadding ->
         HomeScreenBody(
             modifier = modifier.padding(innerPadding),
-            onClick = onPresentationsListItemClick,
-            presentations = presentations
+            presentations = presentations,
+            onPresentationClick = onPresentationsListItemClick
         )
     }
 
@@ -108,7 +108,7 @@ fun HomeScreen(
 fun HomeScreenBody(
     modifier: Modifier = Modifier,
     presentations: List<Presentation>,
-    onClick: (Presentation) -> Unit = {}
+    onPresentationClick: (Presentation) -> Unit = {}
 ) {
     LazyColumnFor(
         modifier = modifier.fillMaxWidth(),
@@ -117,7 +117,7 @@ fun HomeScreenBody(
     ) { item ->
         PresentationResumeCard(
             presentation = item,
-            onClick = onClick
+            onPresentationClick = onPresentationClick
         )
     }
 }
