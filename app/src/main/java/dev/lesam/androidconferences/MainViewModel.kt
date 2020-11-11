@@ -24,6 +24,9 @@ class MainViewModel : ViewModel() {
         _counter.value = _counter.value?.plus(incrementBy)
     }
 
+    fun printItem(performance: Performance) {
+        println(performance)
+    }
 
 }
 
@@ -35,7 +38,7 @@ fun getListOfPerformances(): List<Performance> {
             familyName = "Hafferssas",
             bio = "Software Engineer"
         ),
-        title = "Intersting facts about Jetpack Compose",
+        title = "Interesting facts about Jetpack Compose",
         synopsis = "Even though Jetpack Compose just hit alpha, it has generated huge interest in the Android community. This workshop covers an introduction to the fundamental parts of Compose: setting up views, managing state, and theming. Combining these three areas provides a delightful user experience for any app. By the end of the session, viewers will have an understanding of how to create a UI in compose and have confidence in their ability to use Compose to quickly create a screen in their apps.",
         startsAt = Calendar.getInstance(TimeZone.getTimeZone("GMT+1")).apply {
             set(2020, 11, 14, 20, 0)

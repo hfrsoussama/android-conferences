@@ -2,13 +2,17 @@ package dev.lesam.androidconferences
 
 import androidx.compose.foundation.Text
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.preferredSize
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.*
+import androidx.compose.material.AmbientEmphasisLevels
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.ProvideEmphasis
+import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -19,6 +23,8 @@ import androidx.ui.tooling.preview.Preview
 import androidx.ui.tooling.preview.PreviewParameter
 import androidx.ui.tooling.preview.PreviewParameterProvider
 import dev.lesam.androidconferences.model.Performance
+import dev.lesam.androidconferences.ui.AppThemedPreview
+import dev.lesam.androidconferences.ui.ThemesProvider
 
 
 class PerformanceProvider: PreviewParameterProvider<Performance> {
@@ -28,21 +34,6 @@ class PerformanceProvider: PreviewParameterProvider<Performance> {
         )
 }
 
-
-class ThemesProvider : PreviewParameterProvider<Boolean> {
-    override val values: Sequence<Boolean>
-        get() = sequenceOf(false, true)
-}
-
-@Composable
-fun AppThemedPreview(
-    @PreviewParameter(ThemesProvider::class) isDarkTheme: Boolean,
-    content: @Composable () -> Unit
-) {
-    AppTheme(isDarkTheme) {
-        content()
-    }
-}
 
 
 @Preview(group = "Single component", widthDp = 400)
@@ -61,7 +52,8 @@ fun PresenterCardPreview2(
 @Composable
 fun PerformanceResumeCard(
     modifier: Modifier = Modifier,
-    performance: Performance
+    performance: Performance,
+    onClick: (Performance) -> Unit = {}
 ) {
     Row(
         modifier = modifier
@@ -69,6 +61,7 @@ fun PerformanceResumeCard(
             .clip(RoundedCornerShape(8.dp))
             .background(MaterialTheme.colors.surface)
             .padding(all = 8.dp)
+            .clickable(onClick = { onClick(performance) })
     ) {
         Surface(
             modifier = Modifier.preferredSize(62.dp),
@@ -78,10 +71,13 @@ fun PerformanceResumeCard(
         Column(
             modifier = modifier.padding(start = 8.dp).align(Alignment.CenterVertically)
         ) {
-            Text(text = "${performance.presenter.name} ${performance.presenter.familyName}", fontWeight = FontWeight.Bold)
+            Text(
+                text = "${performance.presenter.name} ${performance.presenter.familyName}",
+                fontWeight = FontWeight.Bold
+            )
             ProvideEmphasis(emphasis = AmbientEmphasisLevels.current.medium) {
                 Text(
-                    text = "Interesting Facts About Compose - Alpha Edition",
+                    text = performance.title,
                     style = MaterialTheme.typography.body2
                 )
             }
