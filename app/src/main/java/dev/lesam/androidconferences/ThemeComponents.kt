@@ -45,6 +45,7 @@ fun PresentationResumeCardPreview(
 
 
 
+//TODO [1] :️ This ⤵️ is the example of Compose's Programming Paradigm
 
 @Composable
 fun PresentationResumeCard(
@@ -87,5 +88,4 @@ fun PresentationResumeCard(
             }
         }
     }
-
 }
