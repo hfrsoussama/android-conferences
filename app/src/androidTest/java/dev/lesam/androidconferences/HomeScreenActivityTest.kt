@@ -2,8 +2,9 @@ package dev.lesam.androidconferences
 
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.test.*
+import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.lifecycle.Lifecycle
-import androidx.ui.test.*
 import dev.lesam.androidconferences.ui.AndroidConferencesTheme
 import org.junit.Before
 import org.junit.Rule
