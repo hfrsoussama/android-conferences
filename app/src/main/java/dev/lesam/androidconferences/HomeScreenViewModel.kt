@@ -10,18 +10,10 @@ import java.util.*
 
 class HomeScreenViewModel : ViewModel() {
 
-    private val _counter = MutableLiveData(0)
-    val counter: LiveData<Int> = _counter
-
     private val _listOfPresentations = MutableLiveData(
         getListOfPresentations()
     )
     val listOfPresentations: LiveData<List<Presentation>> = _listOfPresentations
-
-
-    fun incrementCounter(incrementBy: Int) {
-        _counter.value = _counter.value?.plus(incrementBy)
-    }
 
     fun printItem(presentation: Presentation) {
         println(presentation)
