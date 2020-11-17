@@ -9,8 +9,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -52,13 +50,14 @@ fun HomeScreen(modifier: Modifier = Modifier) {
         modifier = modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        var counter = 0
+        val counterViewModel: CounterViewModel = viewModel()
+        val counter = counterViewModel.counter.observeAsState()
         Text(
             modifier = Modifier.padding(all = 16.dp),
-            text = "I am the Composer n#${counter}"
+            text = "I am the Composer n#${counter.value}"
         )
         Divider(color = Color.LightGray, thickness = 8.dp)
-        OutlinedButton(onClick = { counter++ }) {
+        OutlinedButton(onClick = { counterViewModel.incrementCounter() }) {
             Text(text = " + 1 ")
         }
     }
