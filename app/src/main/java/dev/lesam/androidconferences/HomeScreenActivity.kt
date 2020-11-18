@@ -46,7 +46,7 @@ class HomeScreenActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             AppTheme {
-                HomeScreenViewModelComposable(
+                HomeScreenWithViewModel(
                     modifier = Modifier.layoutId("homeScreen")
                 )
             }
@@ -55,7 +55,7 @@ class HomeScreenActivity : AppCompatActivity() {
 }
 
 @Composable
-fun HomeScreenViewModelComposable(
+fun HomeScreenWithViewModel(
     modifier: Modifier = Modifier,
     viewModel: HomeScreenViewModel = viewModel()
 ) {

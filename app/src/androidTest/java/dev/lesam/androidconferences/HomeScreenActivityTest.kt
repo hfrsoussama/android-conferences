@@ -21,7 +21,7 @@ class HomeScreenActivityTest {
     fun setup() {
         composeAndroidTestRule.setContent {
             AndroidConferencesTheme {
-                HomeScreenViewModelComposable(
+                HomeScreenWithViewModel(
                     modifier = Modifier.testTag(homeScreenTestTag)
                 )
             }
