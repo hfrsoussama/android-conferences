@@ -1,11 +1,5 @@
 package dev.lesam.androidconferences.model
 
-data class Presenter(
-    val name: String,
-    val familyName: String,
-    val bio: String = ""
-)
-
 data class Presentation(
     val presenter: Presenter,
     val title: String,
@@ -15,6 +9,12 @@ data class Presentation(
     val duration: Int = 30,
     val requiredLevel: Level = Level.Fundamentals,
     val id: Int = 0
+)
+
+data class Presenter(
+    val name: String,
+    val familyName: String,
+    val bio: String = ""
 )
 
 sealed class PresentationType {
