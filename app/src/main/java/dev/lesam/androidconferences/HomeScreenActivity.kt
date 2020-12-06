@@ -16,11 +16,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.platform.setContent
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
+import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.viewModel
-import androidx.ui.tooling.preview.Preview
-import androidx.ui.tooling.preview.PreviewParameter
-import androidx.ui.tooling.preview.PreviewParameterProvider
 import dev.lesam.androidconferences.model.Presentation
 import dev.lesam.androidconferences.ui.AppTheme
 
@@ -86,7 +86,7 @@ fun HomeScreen(
                 },
                 actions = {
                     IconButton(onClick = onAddPresentationClick) {
-                        Icon(asset = Icons.Sharp.PlusOne)
+                        Icon(imageVector = Icons.Sharp.PlusOne)
                     }
                 }
             )
