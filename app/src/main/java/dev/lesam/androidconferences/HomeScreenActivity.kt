@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumnFor
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.sharp.PlusOne
@@ -107,16 +107,19 @@ fun HomeScreenBody(
     presentations: List<Presentation>,
     onPresentationClick: (Presentation) -> Unit = {}
 ) {
-    LazyColumnFor(
+    LazyColumn(
         modifier = modifier.fillMaxWidth(),
-        horizontalAlignment = Alignment.CenterHorizontally,
         contentPadding = PaddingValues(all = 8.dp),
-        items = presentations,
-    ) { item ->
-        PresentationResumeCard(
-            presentation = item,
-            onPresentationClick = onPresentationClick
-        )
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        items(
+            items = presentations,
+            itemContent = { item ->
+                PresentationResumeCard(
+                    presentation = item,
+                    onPresentationClick = onPresentationClick
+                )
+            })
     }
 }
 
