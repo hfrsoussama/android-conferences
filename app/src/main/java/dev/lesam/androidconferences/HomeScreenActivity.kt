@@ -86,7 +86,7 @@ fun HomeScreen(
                 },
                 actions = {
                     IconButton(onClick = onAddPresentationClick) {
-                        Icon(imageVector = Icons.Sharp.PlusOne)
+                        Icon(imageVector = Icons.Sharp.PlusOne, contentDescription = null)
                     }
                 }
             )
@@ -113,13 +113,14 @@ fun HomeScreenBody(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         items(
-            items = presentations,
-            itemContent = { item ->
+            count = presentations.size,
+            itemContent = { index: Int ->
                 PresentationResumeCard(
-                    presentation = item,
+                    presentation = presentations[index],
                     onPresentationClick = onPresentationClick
                 )
-            })
+            }
+        )
     }
 }
 

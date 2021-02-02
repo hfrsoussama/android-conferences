@@ -70,7 +70,10 @@ fun PresentationResumeCard(
                 shape = CircleShape,
                 color = MaterialTheme.colors.onSurface.copy(alpha = 0.2f)
             ) {
-                Image(bitmap = imageResource(R.drawable.jetpack_compose_icon_128_rbg))
+                Image(
+                    bitmap = imageResource(R.drawable.jetpack_compose_icon_128_rbg),
+                    contentDescription = null
+                )
             }
             Column(
                 modifier = modifier
