@@ -1,7 +1,7 @@
 package dev.lesam.androidconferences
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import androidx.activity.ComponentActivity
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -15,16 +15,16 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.layoutId
-import androidx.compose.ui.platform.setContent
+import androidx.activity.compose.setContent
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.viewinterop.viewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import dev.lesam.androidconferences.model.Presentation
 import dev.lesam.androidconferences.ui.AppTheme
 
-class PresentationListProvider: PreviewParameterProvider<List<Presentation>> {
+class PresentationListProvider : PreviewParameterProvider<List<Presentation>> {
     override val values: Sequence<List<Presentation>>
         get() = listOf(getListOfPresentations().take(5)).asSequence()
 
@@ -41,7 +41,7 @@ fun HomeScreenThemedPreview(
     }
 }
 
-class HomeScreenActivity : AppCompatActivity() {
+class HomeScreenActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -60,7 +60,8 @@ fun HomeScreenWithViewModel(
     viewModel: HomeScreenViewModel = viewModel()
 ) {
     val presentations by viewModel.listOfPresentations.observeAsState()
-    val onPresentationsListItemClick = { presentation: Presentation -> viewModel.printItem(presentation) }
+    val onPresentationsListItemClick =
+        { presentation: Presentation -> viewModel.printItem(presentation) }
     val onAddPresentationClick = { viewModel.addNewPresentation() }
 
     HomeScreen(
