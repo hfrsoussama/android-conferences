@@ -3,10 +3,7 @@ package dev.lesam.androidconferences
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.preferredSize
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
@@ -66,7 +63,7 @@ fun PresentationResumeCard(
                 .padding(all = 8.dp)
         ) {
             Surface(
-                modifier = Modifier.preferredSize(62.dp),
+                modifier = Modifier.size(62.dp),
                 shape = CircleShape,
                 color = MaterialTheme.colors.onSurface.copy(alpha = 0.2f)
             ) {
