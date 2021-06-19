@@ -16,6 +16,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.layoutId
 import androidx.activity.compose.setContent
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
@@ -31,6 +32,7 @@ class PresentationListProvider : PreviewParameterProvider<List<Presentation>> {
 }
 
 
+@ExperimentalAnimationApi
 @Preview(group = "Themed Screens", showBackground = true, heightDp = 800, widthDp = 400)
 @Composable
 fun HomeScreenThemedPreview(
@@ -42,6 +44,7 @@ fun HomeScreenThemedPreview(
 }
 
 class HomeScreenActivity : ComponentActivity() {
+    @ExperimentalAnimationApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -54,6 +57,7 @@ class HomeScreenActivity : ComponentActivity() {
     }
 }
 
+@ExperimentalAnimationApi
 @Composable
 fun HomeScreenWithViewModel(
     modifier: Modifier = Modifier,
@@ -72,6 +76,7 @@ fun HomeScreenWithViewModel(
     )
 }
 
+@ExperimentalAnimationApi
 @Composable
 fun HomeScreen(
     modifier: Modifier = Modifier,
@@ -102,6 +107,7 @@ fun HomeScreen(
 
 }
 
+@ExperimentalAnimationApi
 @Composable
 fun HomeScreenBody(
     modifier: Modifier = Modifier,
